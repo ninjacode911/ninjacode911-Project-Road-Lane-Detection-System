@@ -63,21 +63,24 @@ cd ninjacode911-Project-Road-Lane-Detection-System
 
 You can test the system with either images or videos using the following modes:
 
-🖼️ Image Processing
+🖼️ Image Processing:
+
 1] Place test images in: notebooks/test_images/
 
 2] Run the Jupyter Notebook or Colab script.
 
 3] Output will be saved in: notebooks/outputs/
 
-🎥 Video Processing
+🎥 Video Processing:
+
 1] Place test videos in: models/testing/
 
 2] Run the Jupyter Notebook or Colab script.
 
 3] Processed videos will appear in: models/videos/ or models/output/
 
-Direct Python Execution
+Direct Python Execution:
+
 
 1] Place test files in:
 
