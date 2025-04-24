@@ -32,13 +32,13 @@ Lane detection is a crucial component of advanced driver assistance systems (ADA
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/Ashok-Prajapati2/Road-lane-line-detection.git
+    git clone https://github.com/ninjacode911/ninjacode911-Project-Road-Lane-Detection-System.git
+    cd ninjacode911-Project-Road-Lane-Detection-System
     ```
 
 2. Install dependencies:
 
     ```bash
-    cd Road-lane-line-detection
     pip install -r requirements.txt
     ```
 
