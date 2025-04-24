@@ -78,6 +78,7 @@ You can test the system with either images or videos using the following modes:
 3] Processed videos will appear in: models/videos/ or models/output/
 
 Direct Python Execution
+
 1] Place test files in:
 
 2] data/test_images/ for images
