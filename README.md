@@ -64,25 +64,25 @@ cd ninjacode911-Project-Road-Lane-Detection-System
 You can test the system with either images or videos using the following modes:
 
 🖼️ Image Processing
-Place test images in: notebooks/test_images/
+1] Place test images in: notebooks/test_images/
 
-Run the Jupyter Notebook or Colab script.
+2] Run the Jupyter Notebook or Colab script.
 
-Output will be saved in: notebooks/outputs/
+3] Output will be saved in: notebooks/outputs/
 
 🎥 Video Processing
-Place test videos in: models/testing/
+1] Place test videos in: models/testing/
 
-Run the Jupyter Notebook or Colab script.
+2] Run the Jupyter Notebook or Colab script.
 
-Processed videos will appear in: models/videos/ or models/output/
+3] Processed videos will appear in: models/videos/ or models/output/
 
 Direct Python Execution
-Place test files in:
+1] Place test files in:
 
-data/test_images/ for images
+2] data/test_images/ for images
 
-data/test_videos/ for videos
+3] data/test_videos/ for videos
 
 2. Run:
    python app/main.py
@@ -91,7 +91,9 @@ Outputs will be stored in the results/ folder.
 
 Note: ✏️ Make sure to update the image/video file names in app/main.py or notebook cells before running.
 
+
 🧩 Configuration
+
 All configuration files are located in the config/ folder:
 
 environment.yml – Conda environment setup
