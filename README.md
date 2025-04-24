@@ -78,9 +78,6 @@ Configuration files are located in the `config/` directory:
 - `environment.yml`: Specifies the conda environment setup.
 - `parameters.json`: Contains configurable parameters for the lane detection algorithm.
 
-
-## Examples
-
 ### Images
 
 Here are some examples of lane detection on input images:
@@ -90,20 +87,4 @@ Here are some examples of lane detection on input images:
 ![Detected Lane 3](notebooks/outputs/processed_example3.jpg)
 ![Detected Lane 4](/models/outputs/17.png)
 
-### Videos
 
-Here are some examples of lane detection on input videos:
-
-- [Video 1](results/videos/detected_lane_mask_1716694942.5413225.mp4)
-- [Video 2](results/videos/detected_lane_1716694942.5413072.mp4)
-- [Video 3](results/videos/detected_lane_1716695074.6446207.mp4)
-- [Video 4](results/videos/detected_lane_1716695496.300908.mp4)
-- [Video 5](/models/testing/challenge.mp4)
-
-
-### Project Doc
-
-- [Doc](/docs/project_work.pdf)
-
-## Model
-- [Model](https://drive.google.com/file/d/1G6ANBYpWUENjda6dgxAp77RduZ1slLnC/view?usp=drive_link)
