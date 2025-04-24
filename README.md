@@ -1,40 +1,48 @@
-# Lane Detection Project
+# 🚗 Lane Detection Project
 
-This project implements a lane detection system using computer vision techniques and deep learning.
+This project implements a lane detection system using computer vision and deep learning, ideal for real-time applications like Advanced Driver Assistance Systems (ADAS) and autonomous driving.
 
+---
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Examples](#examples)
+## 📚 Table of Contents
 
-## Introduction
+- [🎯 Introduction](#introduction)
+- [✨ Features](#features)
+- [⚙️ Installation](#installation)
+- [🚀 Usage](#usage)
+- [🧩 Configuration](#configuration)
+- [🖼️ Examples](#examples)
+- [🤝 Contributing](#contributing)
+- [📜 License](#license)
+- [📬 Contact](#contact)
 
-Lane detection is a crucial component of advanced driver assistance systems (ADAS) and autonomous vehicles. This project aims to develop a robust lane detection algorithm capable of accurately identifying lane boundaries in images and videos captured by a vehicle's onboard camera.
+---
 
-## Features
+## 🎯 Introduction
 
-- Detects lane boundaries in images and videos.
-- Supports real-time lane detection.
-- Provides visualization of detected lanes overlaid on input images/videos.
-- Supports both straight and curved lane detection.
-- Uses deep learning models for enhanced accuracy.
-- Logs training and evaluation metrics for model performance analysis.
+Lane detection plays a critical role in autonomous vehicle navigation. This project focuses on identifying lane boundaries in both images and videos using a combination of traditional vision techniques and deep learning models.
 
+---
 
-## Installation
+## ✨ Features
 
-1. Clone the repository:
+- ✅ Detects lane boundaries in images and videos
+- ⏱️ Real-time lane detection support
+- 📊 Visual overlays of detected lanes
+- 🔄 Detects both straight and curved lanes
+- 🧠 Utilizes deep learning for higher accuracy
+- 📈 Logs training and evaluation metrics
 
-    ```bash
-    git clone https://github.com/ninjacode911/ninjacode911-Project-Road-Lane-Detection-System.git
-    cd ninjacode911-Project-Road-Lane-Detection-System
-    ```
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository:
+
+```bash
+git clone https://github.com/ninjacode911/ninjacode911-Project-Road-Lane-Detection-System.git
+cd ninjacode911-Project-Road-Lane-Detection-System
+```
 
 2. Install dependencies:
 
@@ -53,30 +61,43 @@ Lane detection is a crucial component of advanced driver assistance systems (ADA
     ```
 ## Usage
 
-1. Place input images or videos in the `data/test_images/` or `data/test_videos/` directory.
-2. Run the application using the provided instructions.
-3. View the output results in the `results/` directory.
+You can test the system with either images or videos using the following modes:
 
-or 
+🖼️ Image Processing
+Place test images in: notebooks/test_images/
 
-1. Place input images  in the `notebooks/test_images` directory.
-2. Run the script using the jupyter notbook or colob . 
-3. View the output results in the `notebooks/outputs` directory.
+Run the Jupyter Notebook or Colab script.
 
-or 
+Output will be saved in: notebooks/outputs/
 
-1. Place input  videos in the `models/testing`  directory.
-2. Run the script using the jupyter notbook or colob . 
-3. View the output results in the `models/videos` or `models/output` directory.
+🎥 Video Processing
+Place test videos in: models/testing/
 
-```bash change the image and videos name in `app/main.py` and notebooks.```
+Run the Jupyter Notebook or Colab script.
 
-## Configuration
+Processed videos will appear in: models/videos/ or models/output/
 
-Configuration files are located in the `config/` directory:
+Direct Python Execution
+Place test files in:
 
-- `environment.yml`: Specifies the conda environment setup.
-- `parameters.json`: Contains configurable parameters for the lane detection algorithm.
+data/test_images/ for images
+
+data/test_videos/ for videos
+
+2. Run:
+   python app/main.py
+   
+Outputs will be stored in the results/ folder.
+
+Note: ✏️ Make sure to update the image/video file names in app/main.py or notebook cells before running.
+
+🧩 Configuration
+All configuration files are located in the config/ folder:
+
+environment.yml – Conda environment setup
+
+parameters.json – Customizable parameters for the lane detection pipeline
+
 
 ### Images
 
