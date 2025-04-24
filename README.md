@@ -79,24 +79,6 @@ Configuration files are located in the `config/` directory:
 - `parameters.json`: Contains configurable parameters for the lane detection algorithm.
 
 
-## Contributing
-
-Contributions are welcome! 
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-- This project was inspired by [Lane Detection using OpenCV](https://github.com/Ashok-Prajapati2/Road-lane-line-detection.git) by [Ashok Kumar](https://github.com/Ashok-Prajapati2).
-
-
-## Contact
-
-For questions or feedback, please contact [Ashok Kumar](mailto:ap86963163@gmail.com).
-
-
 ## Examples
 
 ### Images
