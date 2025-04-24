@@ -1,69 +1,75 @@
 import sys
-import cv2
 import os
+import cv2
+import time
+from datetime import datetime
+
+# Ensure the current working directory is in sys.path
 try:
     path = os.getcwd()
-    sys.path.insert(1,path)
+    if path not in sys.path:
+        sys.path.insert(1, path)
 except Exception as e:
-    print("Error in adding path",e)
+    print(f"[ERROR] Failed to insert current path: {e}")
 
+# Import custom modules
 from lane_detection.detector import LaneDetector
 from app.gen_log import Logger
-import time
 
 
-def main():
-    logger = Logger()
-    logger.log_info('Starting lane detection...')
+def ensure_directory(path):
+    """Create the directory if it doesn't exist."""
+    os.makedirs(path, exist_ok=True)
 
-    try:
-        detector = LaneDetector()
-    except Exception as e:
-        logger.log_error(f"Error initializing lane detector: {e}")
-        return
 
-    test_image_path = 'data/test_images/example5.jpg'
-    test_video_path = 'data/test_videos/example1.mp4'
-
-    # Process image
+def process_image(detector, logger, input_path, output_dir):
     logger.log_info('Processing image...')
-    image = cv2.imread(test_image_path)
+
+    image = cv2.imread(input_path)
     if image is None:
-        logger.log_error("Failed to load the test image.")
+        logger.log_error(f"Could not read image from {input_path}")
         return
 
     try:
         detected_image, mask = detector.detect_lane(image)
-        output_image_path = 'results/images/detected_lanet.jpg'
-        cv2.imwrite(output_image_path, detected_image)
-        logger.log_info(f'Image processed and saved at: {output_image_path}')
 
-        output_mask_path = 'results/masks/detected_lane_mask.jpg'
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_img_path = os.path.join(output_dir, f"detected_lane_{timestamp}.jpg")
+        output_mask_path = os.path.join(output_dir, f"lane_mask_{timestamp}.jpg")
+
+        ensure_directory(output_dir)
+        cv2.imwrite(output_img_path, detected_image)
         cv2.imwrite(output_mask_path, mask)
-        logger.log_info(f'Image processed and saved at: {output_mask_path}')
+
+        logger.log_info(f"Image saved at: {output_img_path}")
+        logger.log_info(f"Mask saved at: {output_mask_path}")
     except Exception as e:
-        logger.log_error(f"Error processing image: {e}")
+        logger.log_error(f"Error during image processing: {e}")
+
+
+def process_video(detector, logger, input_path, output_dir):
+    logger.log_info('Processing video...')
+
+    cap = cv2.VideoCapture(input_path)
+    if not cap.isOpened():
+        logger.log_error(f"Failed to open video file: {input_path}")
         return
 
-    # Process video
-    logger.log_info('Processing Video...')
     try:
-        cap = cv2.VideoCapture(test_video_path)
-        if not cap.isOpened():
-            logger.log_error("Error opening video file.")
-            return
-
-        frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        fps = int(cap.get(cv2.CAP_PROP_FPS))
-        output_video_path = f'results/videos/detected_lane_{time.time()}.mp4'
-        output_mask_video_path = f'results/videos/detected_lane_mask_{time.time()}.mp4'
-        
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        fps = cap.get(cv2.CAP_PROP_FPS)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
-        out_mask = cv2.VideoWriter(output_mask_video_path, fourcc, fps, (frame_width, frame_height))
 
-        while cap.isOpened():
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        video_out_path = os.path.join(output_dir, f"detected_lane_{timestamp}.mp4")
+        mask_out_path = os.path.join(output_dir, f"lane_mask_{timestamp}.mp4")
+
+        ensure_directory(output_dir)
+        out = cv2.VideoWriter(video_out_path, fourcc, fps, (width, height))
+        out_mask = cv2.VideoWriter(mask_out_path, fourcc, fps, (width, height))
+
+        while True:
             ret, frame = cap.read()
             if not ret:
                 break
@@ -72,26 +78,54 @@ def main():
                 detected_frame, mask = detector.detect_lane(frame)
                 out.write(detected_frame)
                 out_mask.write(mask)
-            except Exception as e:
-                logger.log_error(f"Error processing frame: {e}")
+            except Exception as frame_error:
+                logger.log_error(f"Error processing frame: {frame_error}")
 
+        logger.log_info(f"Video saved at: {video_out_path}")
+        logger.log_info(f"Mask video saved at: {mask_out_path}")
+
+    except Exception as e:
+        logger.log_error(f"Unexpected error during video processing: {e}")
+    finally:
         cap.release()
         out.release()
         out_mask.release()
-        logger.log_info(f'Video processed and saved at: {output_video_path}')
-        logger.log_info(f'Mask video processed and saved at: {output_mask_video_path}')
-        logger.log_info('Lane detection completed.')
-    except Exception as e:
-        logger.log_error(f"Error processing video: {e}")
-    finally:
         cv2.destroyAllWindows()
 
+
+def main():
+    logger = Logger()
+    logger.log_info('--- Lane Detection Script Started ---')
+
     try:
-        log_file_path = logger.get_log_file_path()
-        with open(log_file_path, 'r') as log_file:
+        detector = LaneDetector()
+    except Exception as e:
+        logger.log_error(f"Failed to initialize LaneDetector: {e}")
+        return
+
+    # Paths
+    test_image_path = 'data/test_images/example5.jpg'
+    test_video_path = 'data/test_videos/example1.mp4'
+    image_output_dir = 'results/images'
+    video_output_dir = 'results/videos'
+    mask_output_dir = 'results/masks'
+
+    # Process Image
+    process_image(detector, logger, test_image_path, image_output_dir)
+    
+    # Process Video
+    process_video(detector, logger, test_video_path, video_output_dir)
+
+    logger.log_info('--- Lane Detection Script Completed ---')
+
+    # Print Log File
+    try:
+        with open(logger.get_log_file_path(), 'r') as log_file:
+            print("\n--- Log Output ---")
             print(log_file.read())
     except Exception as e:
-        print(f"Error reading log file: {e}")
+        print(f"[ERROR] Unable to read log file: {e}")
+
 
 if __name__ == "__main__":
     main()
